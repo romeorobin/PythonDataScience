@@ -1,0 +1,15 @@
+import requests
+import json
+
+headers = {'User-agent': 'Chrome/79.0.3945.79',
+                    'Accept':'application/vnd.github.v3+json'}
+
+User = 'romeorobin'
+url = f'https://api.github.com/users/{User}/repos?sort=created'
+temp = requests.get(url,headers=headers)
+data = json.loads(temp.text)
+data
+with open(f'{User}_repos.json', 'w') as file: 
+    for rep in data:
+        file.write(rep['html_url']+'\n')
+        print(rep['html_url'])
